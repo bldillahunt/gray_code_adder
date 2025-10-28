@@ -16,6 +16,8 @@ module gray_code_testbench;
     reg [COUNTER_MSB-1:0] previous_gray_code;	
     reg [COUNTER_MSB-1:0] gray_code_difference;
     reg [COUNTER_MSB-1:0] difference_sum;
+    reg data_valid_reg0;
+    reg data_valid_reg1;
 
 	function [COUNTER_MSB:0] gray_code;
 		input valid_data_in;
@@ -88,10 +90,10 @@ module gray_code_testbench;
 			output_valid		<= gray_code_output[COUNTER_MSB];
 			
 			if (counter < (2**16-1)) begin
-				if (output_valid == 1'b1) begin
+				if ((output_valid) || (data_valid_reg0) || (data_valid_reg1)) begin
 					// Verify the gray codes
-					current_gray_code	<= gray_code_output[COUNTER_MSB-1:0];
 					previous_gray_code	<= current_gray_code;
+					current_gray_code	<= gray_code_output[COUNTER_MSB-1:0];
 					
 					gray_code_difference	<= current_gray_code ^ previous_gray_code;
 					difference_sum = 0;
@@ -102,7 +104,7 @@ module gray_code_testbench;
 						end
 					end
 					
-					if (difference_sum > 1) begin
+					if (((difference_sum > 1) || (difference_sum < 1)) && (data_valid_reg1 == 1'b1)) begin
 						$display("GRAY CODE ERROR: counter = %b\n", counter); 
 					end
 					
@@ -117,5 +119,10 @@ module gray_code_testbench;
 				counter				<= counter + 1;
 			end
 		end
+	end
+
+	always @(posedge clock) begin
+		data_valid_reg0		<= output_valid;
+		data_valid_reg1		<= data_valid_reg0;
 	end
 endmodule

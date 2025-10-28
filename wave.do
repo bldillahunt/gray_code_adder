@@ -4,7 +4,7 @@ add wave -noupdate /gray_code_testbench/clock
 add wave -noupdate /gray_code_testbench/reset
 add wave -noupdate /gray_code_testbench/counter
 add wave -noupdate /gray_code_testbench/input_valid
-add wave -noupdate -color Blue -radix hexadecimal /gray_code_testbench/gray_code_input
+add wave -noupdate -color Blue -radix unsigned /gray_code_testbench/gray_code_input
 add wave -noupdate /gray_code_testbench/output_valid
 add wave -noupdate /gray_code_testbench/gray_code_output
 add wave -noupdate -color Red /gray_code_testbench/gray_code/gray_code
@@ -18,8 +18,10 @@ add wave -noupdate /gray_code_testbench/current_gray_code
 add wave -noupdate /gray_code_testbench/previous_gray_code
 add wave -noupdate /gray_code_testbench/gray_code_difference
 add wave -noupdate /gray_code_testbench/difference_sum
+add wave -noupdate /gray_code_testbench/data_valid_reg0
+add wave -noupdate /gray_code_testbench/data_valid_reg1
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {282569286 ps} 0}
+WaveRestoreCursors {{Cursor 1} {656320975 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 277
 configure wave -valuecolwidth 206
